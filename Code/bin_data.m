@@ -103,7 +103,7 @@ for fnProf = unique(pInfo.fnProf)'
         tbl = outerjoin(tblF, tblS, "Keys", "bin", "MergeKeys", true);
 
         %%
-        %
+        % 
         % Dissipation is special and we're only going to work with e
         % and FM, figure of merit = mad*sqrt(dof_spec),
         % mad = mean absolute deviation,
