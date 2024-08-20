@@ -1,13 +1,14 @@
 %
 % Convert SUNRISE .P files to binned data
 %
+% Ale-2024
 % Nov-2023, Pat Welch, pat@mousebrains.com
 
 project = "SUNRISE";
-year = 2021;
+year = 2022;
 % ship = "Pelican";
-ship = "WaltonSmith";
-% ship = "PointSur";
+% ship = "WaltonSmith";
+ ship = "PointSur";
 
 % bbl = true; % Trim at bottom and bin in elevation or not
 bbl = false; % Don't trim bottom and bin in depth
@@ -32,17 +33,23 @@ end
 
 suffix = fullfile(string(year), ship);
 
+
 my_root = fileparts(mfilename("fullpath"));
 code_root = fullfile(my_root, "../Code");
-data_root = fullfile(my_root, "../..", project);
-p_file_root = fullfile(data_root, "Data", suffix, "VMP");
-output_root = fullfile(data_root, "Processed", suffix);
+data_root = '/Users/alesanchez-rios/Documents/CRUISES/SUNRISE_PROJ/VMP_data_PS_2022';
+p_file_root= fullfile(data_root, 'Student_p');
+output_root = fullfile(data_root, 'Student_p_processed');
 
 origPath = addpath(code_root, "-begin"); % Before reference to GPS_from_...
 
+disp(p_file_root)
+
 try
-    GPS_filename = fullfile(data_root, "Data", suffix, "GPS", "gps.mat");
-    GPS_class = GPS_from_mat(GPS_filename, missing, "linear", "time");
+
+    % % This is interesting 
+GPS_filename = fullfile(data_root, '../GPS/WS_2022/GPS_2022_PS.mat');
+GPS_class = GPS_from_mat(GPS_filename);
+
 
     pars = process_P_files( ...
         "debug", true, ...
@@ -74,7 +81,8 @@ try
         "netCDF_platform", "Rockland VMP250", ...
         "netCDF_product_version", "0.1", ...
         "netCDF_program", append(project, " ", string(year)), ...
-        "netCDF_project", append(project, " ", string(year)) ...
+        "netCDF_project", append(project, " ", string(year)), ...
+        "chi_enable", true...
     	);
 catch ME
     disp(getReport(ME));
