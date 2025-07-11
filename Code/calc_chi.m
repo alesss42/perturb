@@ -33,5 +33,8 @@ for name = names(startsWith(names, "gradT"))
         % tbl.(sprintf("chi_dT%s_e%d", index, j)) = 2 * kappa_T * diss.N2 .* diss.e(:,j) ./ gradT2;
         tbl.(sprintf("chi_dT%s_e%d", index, j)) = 2 * kappa_T * gradT2 .* diss.e(:,j) ./ diss.N2; % following the equation
     end % for j
+
+
+    
 end % for name
 end % calc_chi
