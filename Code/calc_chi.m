@@ -27,9 +27,11 @@ for name = names(startsWith(names, "gradT"))
     % gradT2(gradT <= 0) = NaN;
     index = extractAfter(name, "gradT");
     tbl.(name) = gradT;
-    tbl.(sprintf("chi_dT%s_mean", index)) = 2 * kappa_T * diss.N2 .* diss.epsilonMean ./ gradT2;
+    % tbl.(sprintf("chi_dT%s_mean", index)) = 2 * kappa_T * diss.N2 .* diss.epsilonMean ./ gradT2;
+    tbl.(sprintf("chi_dT%s_mean", index)) = 2 * kappa_T * gradT2 .* diss.epsilonMean ./ diss.N2;
     for j = 1:size(diss.e,2)
-        tbl.(sprintf("chi_dT%s_e%d", index, j)) = 2 * kappa_T * diss.N2 .* diss.e(:,j) ./ gradT2;
+        % tbl.(sprintf("chi_dT%s_e%d", index, j)) = 2 * kappa_T * diss.N2 .* diss.e(:,j) ./ gradT2;
+        tbl.(sprintf("chi_dT%s_e%d", index, j)) = 2 * kappa_T * gradT2 .* diss.e(:,j) ./ diss.N2; % following the equation
     end % for j
 end % for name
 end % calc_chi

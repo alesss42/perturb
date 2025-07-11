@@ -3,6 +3,7 @@
 % For each profile, calculate chi estimates
 %
 % Nov-2023, Pat Welch, pat@mousebrains.com
+% Sept-2024, Ale sanchez introduce estimating the spectrum of grad
 
 function [row, chiInfo] = profile2chi(row, profileInfo, dissInfo, pars)
 arguments (Input)
@@ -59,6 +60,13 @@ for index = 1:nProfiles
     slow = profile.slow;
     diss = dProfiles{index};
     fast.dDepth = interp1(diss.depth, diss.depth, fast.depth, "nearest", "extrap");
+
+    % Ale code for chi
+
+    % We first create the matrix with the gradT1 and gradtT2
+    scalars = [fast.gradT1(:), fast.gradT2(:)];
+
+    % Not sure how this "findgroups" devides depth 
     fast.grp = findgroups(fast.dDepth);
     a = rowfun(@(x) x(1), fast, ...
         InputVariables="dDepth", ...
