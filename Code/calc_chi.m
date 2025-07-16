@@ -12,7 +12,7 @@ arguments (Output)
     dInfo (1,:) table % pInfo with extra fields
     tbl table % Tabular form of diss struct
 end % arguments Output
-
+disp('here')
 kappa_T = 1.4e-7; % thermal diffusivity [m^2/s]
 
 tbl = table();

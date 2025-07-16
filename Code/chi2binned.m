@@ -54,12 +54,25 @@ else % Bin by depth
 end % if profile_direction
 
 casts = cell(numel(profiles),1);
+% for index = 1:numel(profiles)
+%     profile = profiles{index};
+%     prof2 = table();
+%     for name = string(profile.Properties.VariableNames)
+%         if ~ismatrix(profile.(name)), continue; end
+%         prof2.(name) = profile.(name);
+%     end % for name
+
 for index = 1:numel(profiles)
     profile = profiles{index};
     prof2 = table();
     for name = string(profile.Properties.VariableNames)
+        sz = size(profile.(name),2);
         if ~ismatrix(profile.(name)), continue; end
-        prof2.(name) = profile.(name);
+        if sz == 1
+            prof2.(name) = profile.(name);
+        elseif sz >=2
+            
+        end % if sz
     end % for name
 
     casts{index} = binFunc(binSize, keyName, prof2, pars.binChi_method);

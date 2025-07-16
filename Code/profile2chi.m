@@ -61,10 +61,10 @@ for index = 1:nProfiles
     diss = dProfiles{index};
     fast.dDepth = interp1(diss.depth, diss.depth, fast.depth, "nearest", "extrap");
 
-    % Ale code for chi
-
-    % We first create the matrix with the gradT1 and gradtT2
-    scalars = [fast.gradT1(:), fast.gradT2(:)];
+    % % Ale code for chi
+    % 
+    % % We first create the matrix with the gradT1 and gradtT2
+    
 
     % Not sure how this "findgroups" devides depth 
     fast.grp = findgroups(fast.dDepth);
@@ -99,7 +99,8 @@ for index = 1:nProfiles
     diss = innerjoin(diss, a, Keys="depth", RightVariables=names);
     diss = innerjoin(diss, b, Keys="depth", RightVariables="N2");
 
-    [dInfo{index}, tbl{index}] = calc_chi(diss, pInfo(index,:));
+    % [dInfo{index}, tbl{index}] = calc_chi(diss, pInfo(index,:));
+    [dInfo{index}, tbl{index}] = calc_chi_v2(profile, diss, pInfo(index,:), pars);
 end % for index
 
 qEmpty = cellfun(@isempty, tbl);
